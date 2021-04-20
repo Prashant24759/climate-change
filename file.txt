@@ -1,0 +1,5 @@
+countrywise temperature(Bar & Line)
+continent wise temperature shift(Box plot)
+Season wise temperature(scatter plot)
+year wise temperature(Scatter)
+cloropeth map
