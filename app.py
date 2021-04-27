@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 import pandas as pd
 from database import Report
 from visualization import plot
+from AnalyseData import Analyse
 
 engine = create_engine('sqlite:///db.sqlite3')
 Session = sessionmaker(bind=engine)
@@ -12,6 +13,8 @@ sess = Session()
 
 st.title('Global Warming and Climate Change Analysis')
 sidebar = st.sidebar
+
+analysis = Analyse("datasets/Environment_Temperatur_Change")
 
 def viewForm():
 
@@ -41,6 +44,8 @@ def viewReport():
     """
 
     st.markdown(markdown)
+
+
 
 sidebar.header('Choose Your Option')
 options = [ 'View Database', 'Analyse', 'View Report' ]
