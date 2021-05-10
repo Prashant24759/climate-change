@@ -69,7 +69,7 @@ def analyseTemperature():
 def viewReport():
     reports = sess.query(Report).all()
     titlesList = [ report.title for report in reports ]
-    selReport = st.selectbox(options = titlesList, label="Select Report")
+    selReport = st.selectbox(options = titlesList, label= "Select Report")
     
     reportToView = sess.query(Report).filter_by(title = selReport).first()
 
