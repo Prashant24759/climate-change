@@ -17,9 +17,34 @@ sidebar = st.sidebar
 analysis = Analyse("dataset/Environment_Temperature_change.csv")
 
 def viewDataset():
-    st.header('Datasets used in this Analysis')
-    with st.spinner("Loading Data ..."):
-        st.dataframe(analysis.getDataframe())
+    st.header('Data Used in Project')
+    dataframe = analysis.getDataframe()
+
+    with st.spinner("Loading Data..."):
+        st.dataframe(dataframe)
+
+        st.markdown('---')
+        cols = st.beta_columns(4)
+        cols[0].markdown("### No. of Rows :")
+        cols[1].markdown(f"# {dataframe.shape[0]}")
+        cols[2].markdown("### No. of Columns :")
+        cols[3].markdown(f"# {dataframe.shape[1]}")
+        st.markdown('---')
+
+        st.header('Summary')
+        st.dataframe(dataframe.describe())
+        st.markdown('---')
+
+        types = {'object' : 'Categorical', 'int64': 'Numerical', 'float64': 'Numerical'}
+        types = list(map(lambda t: types[str(t)], dataframe.dtypes))
+        st.header('Dataset Columns')
+        for col, t in zip(dataframe.columns, types):
+            st.markdown(f"### {col}")
+            cols = st.beta_columns(4)
+            cols[0].markdown('#### Unique Values :')
+            cols[1].markdown(f"# {dataframe[col].unique().size}")
+            cols[2].markdown('#### Type :')
+            cols[3].markdown(f"## {t}")
 
 def viewForm():
 
@@ -37,20 +62,20 @@ def viewForm():
 
 def analyseTemperature():
     st.header('Average Temperature rise in Countries')
-    selConl = st.selectbox(options = analysis.getCountries(), label="Which Country")
+    selConl = st.selectbox(options = analysis.getCountries(), label="Country")
     data1 = analysis.country_df(selConl)
     with st.spinner('Loading Plot...'):
         st.plotly_chart(plotLine(data1, 'year', 'Meteorological year'))
 
-    selConb = st.selectbox(options = analysis.getCountries(), label="Which Country ")
+    selConb = st.selectbox(options = analysis.getCountries(), label=" Country ")
     data2 = analysis.country_df(selConb)
     with st.spinner('Loading Plot...'):
         st.plotly_chart(plotBar(data2, 'year', 'Meteorological year'))
 
-    selMon = st.selectbox(options = analysis.getMonths(), label="Which Month")
-    countries = ['usa']
+    selMon = st.selectbox(options = analysis.getMonths(), label=" Month")
+    countries = ['USA','INDIA']
     
-    selcountry = st.selectbox(options = countries, label="Which Country")
+    selcountry = st.selectbox(options = countries, label=" Country")
     st.image(f'plotImages/{selcountry}_{selMon}.png')
 
     st.header('Average Temperature rise in seasons')
