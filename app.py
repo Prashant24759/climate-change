@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 import pandas as pd
 from database import Report
-from visualization import plot
+from visualization import *
 from AnalyseData import Analyse
 
 engine = create_engine('sqlite:///db.sqlite3')
@@ -14,7 +14,12 @@ sess = Session()
 st.title('Global Warming and Climate Change Analysis')
 sidebar = st.sidebar
 
-analysis = Analyse("datasets/Environment_Temperatur_Change")
+analysis = Analyse("dataset/Environment_Temperature_change.csv")
+
+def viewDataset():
+    st.header('Datasets used in this Analysis')
+    with st.spinner("Loading Data ..."):
+        st.dataframe(analysis.getDataframe())
 
 def viewForm():
 
@@ -29,6 +34,37 @@ def viewForm():
         sess.add(report1)
         sess.commit()
         st.success('Report Saved')
+
+def analyseTemperature():
+    st.header('Average Temperature rise in Countries')
+    selConl = st.selectbox(options = analysis.getCountries(), label="Which Country")
+    data1 = analysis.country_df(selConl)
+    with st.spinner('Loading Plot...'):
+        st.plotly_chart(plotLine(data1, 'year', 'Meteorological year'))
+
+    selConb = st.selectbox(options = analysis.getCountries(), label="Which Country ")
+    data2 = analysis.country_df(selConb)
+    with st.spinner('Loading Plot...'):
+        st.plotly_chart(plotBar(data2, 'year', 'Meteorological year'))
+
+    selMon = st.selectbox(options = analysis.getMonths(), label="Which Month")
+    countries = ['usa']
+    
+    selcountry = st.selectbox(options = countries, label="Which Country")
+    st.image(f'plotImages/{selcountry}_{selMon}.png')
+
+    st.header('Average Temperature rise in seasons')
+    st.image('plotImages/temp_shift.png')
+
+    st.header('Comparing the World Temperature with respect to years')
+    st.image('plotImages/world_line.png')
+
+    st.header('Comparing the Country Temperatures with respect to years')
+    st.image('plotImages/world_line.png')
+
+    st.header('Continental temperature rise in various seasons')
+    st.image('plotImages/season_continent.png')
+
 
 def viewReport():
     reports = sess.query(Report).all()
@@ -48,10 +84,12 @@ def viewReport():
 
 
 sidebar.header('Choose Your Option')
-options = [ 'View Database', 'Analyse', 'View Report' ]
+options = [ 'View Dataset', 'Analyse Temperature', 'View Report' ]
 choice = sidebar.selectbox( options = options, label="Choose Action" )
 
-if choice == options[1]:
-    viewForm()
+if choice == options[0]:
+    viewDataset()
+elif choice == options[1]:
+    analyseTemperature()
 elif choice == options[2]:
     viewReport()
