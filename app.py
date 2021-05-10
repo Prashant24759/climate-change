@@ -65,15 +65,20 @@ def analyseTemperature():
     selConl = st.selectbox(options = analysis.getCountries(), label="Country")
     data1 = analysis.country_df(selConl)
     with st.spinner('Loading Plot...'):
-        st.plotly_chart(plotLine(data1, 'year', 'Meteorological year'))
+        st.plotly_chart(plotLine(data1, 'year', 'Meteorological year', title="Line Chart showing the fluctuation in temperature change"))
 
     selConb = st.selectbox(options = analysis.getCountries(), label=" Country ")
     data2 = analysis.country_df(selConb)
     with st.spinner('Loading Plot...'):
         st.plotly_chart(plotBar(data2, 'year', 'Meteorological year'))
 
+<<<<<<< HEAD
     selMon = st.selectbox(options = analysis.getMonths(), label=" Month")
     countries = ['USA','INDIA']
+=======
+    selMon = st.selectbox(options = analysis.getMonths(), label="Which Month")
+    countries = ['usa', 'india']
+>>>>>>> f23e1238913c521f75e4ec7965580c6be9f43889
     
     selcountry = st.selectbox(options = countries, label=" Country")
     st.image(f'plotImages/{selcountry}_{selMon}.png')
