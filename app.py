@@ -65,7 +65,7 @@ def analyseTemperature():
     selConl = st.selectbox(options = analysis.getCountries(), label="Country")
     data1 = analysis.country_df(selConl)
     with st.spinner('Loading Plot...'):
-        st.plotly_chart(plotLine(data1, 'year', 'Meteorological year', title="Line Chart showing the fluctuation in temperature change"))
+        st.plotly_chart(plotLine(data1, 'year', 'Meteorological year', title="Line Chart showing the temperature change"))
 
     selConb = st.selectbox(options = analysis.getCountries(), label=" Country ")
     data2 = analysis.country_df(selConb)
