@@ -73,7 +73,7 @@ def analyseTemperature():
         st.plotly_chart(plotBar(data2, 'year', 'Meteorological year'))
 
     selMon = st.selectbox(options = analysis.getMonths(), label=" Month")
-    countries = ['USA','INDIA','UK','GERMANY','CANADA','RUSSIA']
+    countries = ['USA','INDIA','UK','GERMANY','CANADA','AUSTRALIA']
 
     selcountry = st.selectbox(options = countries, label=" Country")
     st.image(f'plotImages/{selcountry}_{selMon}.png')
