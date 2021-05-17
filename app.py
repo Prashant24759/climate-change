@@ -80,7 +80,12 @@ def analyseTemperature():
         col2.plotly_chart(
             plotBar(data2, 'year', 'Meteorological year', title="Bar Chart"))
 
+<<<<<<< HEAD
+    selMon = st.selectbox(options = analysis.getMonths(), label=" Month")
+    countries = ['USA','India','UK','Germany','Canada','Australia','Ireland','Europe','Japan']
+=======
     st.text("Description here")
+>>>>>>> 5f494d622ca8df6250ca1033f24988e6be1afaf8
 
     st.markdown("---")
 
