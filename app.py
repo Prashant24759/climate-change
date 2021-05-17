@@ -16,6 +16,7 @@ sidebar = st.sidebar
 
 analysis = Analyse("dataset/Environment_Temperature_change.csv")
 
+
 def viewDataset():
     st.header('Data Used in Project')
     dataframe = analysis.getDataframe()
@@ -35,7 +36,8 @@ def viewDataset():
         st.dataframe(dataframe.describe())
         st.markdown('---')
 
-        types = {'object' : 'Categorical', 'int64': 'Numerical', 'float64': 'Numerical'}
+        types = {'object': 'Categorical',
+                 'int64': 'Numerical', 'float64': 'Numerical'}
         types = list(map(lambda t: types[str(t)], dataframe.dtypes))
         st.header('Dataset Columns')
         for col, t in zip(dataframe.columns, types):
@@ -46,6 +48,7 @@ def viewDataset():
             cols[2].markdown('#### Type :')
             cols[3].markdown(f"## {t}")
 
+
 def viewForm():
 
     st.plotly_chart(plot())
@@ -55,27 +58,41 @@ def viewForm():
     btn = st.button("Submit")
 
     if btn:
-        report1 = Report(title = title, desc = desc, data = "")
+        report1 = Report(title=title, desc=desc, data="")
         sess.add(report1)
         sess.commit()
         st.success('Report Saved')
 
+
 def analyseTemperature():
     st.header('Average Temperature rise in Countries')
-    selConl = st.selectbox(options = analysis.getCountries(), label="Country")
+    selConl = st.selectbox(options=analysis.getCountries(), label="Country")
+
+    col1, col2 = st.beta_columns(2)
     data1 = analysis.country_df(selConl)
     with st.spinner('Loading Plot...'):
-        st.plotly_chart(plotLine(data1, 'year', 'Meteorological year', title="Line Chart showing the temperature change"))
+        col1.plotly_chart(plotLine(data1, 'year', 'Meteorological year',
+                                   title="Line Chart"))
 
-    selConb = st.selectbox(options = analysis.getCountries(), label=" Country ")
-    data2 = analysis.country_df(selConb)
+    data2 = analysis.country_df(selConl)
     with st.spinner('Loading Plot...'):
-        st.plotly_chart(plotBar(data2, 'year', 'Meteorological year'))
+        col2.plotly_chart(
+            plotBar(data2, 'year', 'Meteorological year', title="Bar Chart"))
 
+<<<<<<< HEAD
     selMon = st.selectbox(options = analysis.getMonths(), label=" Month")
     countries = ['USA','India','UK','Germany','Canada','Australia','Ireland','Europe','Japan']
+=======
+    st.text("Description here")
+>>>>>>> 5f494d622ca8df6250ca1033f24988e6be1afaf8
 
-    selcountry = st.selectbox(options = countries, label=" Country")
+    st.markdown("---")
+
+    selMon = st.selectbox(
+        options=['spring', 'fall', 'winter', 'summer'], label=" Season")
+    countries = ['USA', 'INDIA', 'UK', 'GERMANY', 'CANADA', 'AUSTRALIA']
+
+    selcountry = st.selectbox(options=countries, label=" Country")
     st.image(f'plotImages/{selcountry}_{selMon}.png')
 
     st.header('Average Temperature rise in seasons')
@@ -93,10 +110,10 @@ def analyseTemperature():
 
 def viewReport():
     reports = sess.query(Report).all()
-    titlesList = [ report.title for report in reports ]
-    selReport = st.selectbox(options = titlesList, label= "Select Report")
-    
-    reportToView = sess.query(Report).filter_by(title = selReport).first()
+    titlesList = [report.title for report in reports]
+    selReport = st.selectbox(options=titlesList, label="Select Report")
+
+    reportToView = sess.query(Report).filter_by(title=selReport).first()
 
     markdown = f"""
         ## {reportToView.title}
@@ -107,10 +124,9 @@ def viewReport():
     st.markdown(markdown)
 
 
-
 sidebar.header('Choose Your Option')
-options = [ 'View Dataset', 'Analyse Temperature', 'View Report' ]
-choice = sidebar.selectbox( options = options, label="Choose Action" )
+options = ['View Dataset', 'Analyse Temperature', 'View Report']
+choice = sidebar.selectbox(options=options, label="Choose Action")
 
 if choice == options[0]:
     viewDataset()
