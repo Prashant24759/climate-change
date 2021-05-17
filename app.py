@@ -90,7 +90,7 @@ def analyseTemperature():
 
     selMon = st.selectbox(
         options=['spring', 'fall', 'winter', 'summer'], label=" Season")
-    countries = ['USA', 'INDIA', 'UK', 'GERMANY', 'CANADA', 'AUSTRALIA']
+    countries = ['USA', 'INDIA', 'UK', 'GERMANY', 'CANADA', 'AUSTRALIA','Ireland','Europe','Japan']
 
     selcountry = st.selectbox(options=countries, label=" Country")
     st.image(f'plotImages/{selcountry}_{selMon}.png')
