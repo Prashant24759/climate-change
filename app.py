@@ -12,8 +12,6 @@ Session = sessionmaker(bind=engine)
 sess = Session()
 
 st.title('Global Warming and Climate Change Analysis')
-st.markdown(""" # """)
-st.image('logo.jpg')
 sidebar = st.sidebar
 
 analysis = Analyse("dataset/Environment_Temperature_change.csv")
@@ -81,19 +79,12 @@ def analyseTemperature():
         col2.plotly_chart(
             plotBar(data2, 'year', 'Meteorological year', title="Bar Chart"))
 
-<<<<<<< HEAD
 
     selMon = st.selectbox(options = analysis.getMonths(), label=" Month")
     countries = ['USA','India','UK','Germany','Canada','Australia','Ireland','Europe','Japan']
 
     st.text("Description here")
 
-=======
-    selMon = st.selectbox(options=analysis.getMonths(), label=" Month")
-    countries = ['USA', 'India', 'UK', 'Germany', 'Canada',
-                 'Australia', 'Ireland', 'Europe', 'Japan']
-    st.text("Description here")
->>>>>>> c9f184839dd9a2253e7b943e761c6d6a7d0b5f9f
 
     st.markdown("---")
 
@@ -115,11 +106,6 @@ def analyseTemperature():
 
     st.header('Continental temperature rise in various seasons')
     st.image('plotImages/season_continent.png')
-
-    selYear = st.selectbox(
-        options=[str(y) for y in range(1961, 2020)], label="Select Year")
-    data = analysis.getYearTemperature(selYear)
-    st.plotly_chart(plotChloropeth(data))
 
 
 def viewReport():
