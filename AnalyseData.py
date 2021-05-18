@@ -6,7 +6,9 @@ class Analyse:
     def __init__(self, path):
         self.df = pd.read_csv(path, encoding="ISO-8859-1")
         # self.df = self.df.head(1000)
-        self.cleanData()
+        if path.endswith('Environment_Temperature_change.csv'):
+            self.cleanData1()
+
         self.years = list(range(1961, 2020))
 
     def getCountries(self):
@@ -15,7 +17,7 @@ class Analyse:
     def getMonths(self):
         return self.df.months.unique()
 
-    def cleanData(self):
+    def cleanData1(self):
         # self.df.drop(['Months Code', 'Element Code', 'Unit','Area Code'], axis=1, inplace=True)
         # df_years=self.df.columns[3:].values
         # self.df.rename(columns=dict(list(zip(df_years,years))),inplace=True)
@@ -80,3 +82,6 @@ class Analyse:
     #         axes.set_ylabel('∆ °C', rotation=0)
     #         axes.set_title(f'{season} ∆ Continental Temperatures')
         # axes.legend(loc='upper left', frameon=True)
+
+    def getDisasterType(self):
+        return self.df.groupby('Entity', as_index=False).count()
