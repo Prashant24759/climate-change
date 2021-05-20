@@ -1,3 +1,4 @@
+from itertools import groupby
 import pandas as pd
 
 
@@ -85,3 +86,11 @@ class Analyse:
 
     def getDisasterType(self):
         return self.df.groupby('Entity', as_index=False).count()
+
+
+    def getDisasterCount(self):
+        return self.df.groupby('Entity').count()['Year']
+
+    def getDisasterByYear(self):
+        self.df.rename(columns={self.df.columns[-1] : 'disasters'}, inplace=True)
+        return self.df.sort_values('Year')
