@@ -16,6 +16,7 @@ sidebar = st.sidebar
 
 analysis = Analyse("dataset/Environment_Temperature_change.csv")
 disasterAnalysis = Analyse("dataset/natural-disaster-events.csv")
+seaAnalysis = Analyse("dataset/sea_levels_2015.csv")
 
 
 def viewDataset():
@@ -104,6 +105,22 @@ def analyseDisasters():
     data = disasterAnalysis.getDisasterType()
     st.plotly_chart(plotBar(data, 'Entity', 'Year'))
 
+    st.header('No. of Disasters')
+    data = disasterAnalysis.getDisasterCount()
+    st.plotly_chart(plotPie(data.values, data.index))
+
+    st.header('Disasters per Year')
+    data = disasterAnalysis.getDisasterByYear()
+    st.plotly_chart(plotLine(data, 'Year', 'disasters'))
+
+
+def analyseSeaLevel():
+    st.header('Sea Levels')
+    data = seaAnalysis.getDataframe()
+    st.plotly_chart(plotLine(data, 'Time', 'GMSL'))
+
+    st.plotly_chart(plotBar(data, 'Time', 'GMSL'))
+
 
 sidebar.header('Choose Your Option')
 options = ['View Dataset', 'Analyse Climate', 'Analyse Floods',
@@ -118,3 +135,5 @@ elif choice == options[2]:
     analyseFloods()
 elif choice == options[3]:
     analyseDisasters()
+elif choice == options[4]:
+    analyseSeaLevel()
