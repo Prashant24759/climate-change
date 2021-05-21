@@ -104,7 +104,16 @@ def analyseFloods():
     st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
                              'Year', 'Population affected-India', title="Total Population Affected in India"))
 
+    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Human lost no.-India', title="Total Humans loss in India"))
 
+    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Damage C.area-Bihar', title="Total Crop Affected in Bihar"))
+
+    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Total damage crops,Houses & Public utilities in Rs.crore', title="Total damage in Bihar"))
+
+     
 def analyseDisasters():
 
     st.header('Types of Natural Disasters')
