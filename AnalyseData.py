@@ -5,12 +5,22 @@ import pandas as pd
 class Analyse:
 
     def __init__(self, path):
-        self.df = pd.read_csv(path, encoding="ISO-8859-1")
+        if path.endswith('csv'):
+            self.df = pd.read_csv(path, encoding="ISO-8859-1")
+        if path.endswith('xls'):
+            self.df = pd.read_excel(path, encoding="ISO-8859-1")
+            self.df = self.df[:-4]
         # self.df = self.df.head(1000)
         if path.endswith('Environment_Temperature_change.csv'):
             self.cleanData1()
+        elif path.endswith('flood_damage.xls'):
+            self.cleanFloodData()
 
         self.years = list(range(1961, 2020))
+
+    def cleanFloodData(self):
+        self.df.rename(columns={'Sl.No\n-India': 'India', 'Area affected in m.ha. - India': 'Area affected-India', 'Population affected in million - India': 'Population affected-India', 'Damage to Crops - Area in m. ha. - India': 'Damage C.area-India', 'Damage to Crops - Value in Rs.Crore - India': 'Damage C.value-India', 'Damage to Houses - Nos. - India': 'Damage H.no.-India', 'Damage to Houses - Value in Rs.Crore - India': 'Damage H.value-India', 'Cattle Lost Nos. - India': 'Cattle lost-India', 'Human live Lost Nos. - India': 'Human lost no.-India', 'Area affected in m.ha. - Bihar': 'Area affected-Bihar',
+                                'Population affected in million - Bihar': 'Population affected-Bihar', 'Damage to Crops - Area in m. ha. - Bihar': 'Damage C.area-Bihar', 'Damage to Crops - Value in Rs.Crore - Bihar': 'Damage C.value-Bihar', 'Damage to Houses - Nos. - Bihar': 'Damage H.no.-Bihar', 'Damage to Houses - Value in Rs.Crore - Bihar': 'Damage H.value-Bihar', 'Human live Lost Nos. - Bihar': 'Human lost no.-Bihar', 'Damage to Public Utilities in Rs.Crore - Bihar': 'Damage public utilities-Bihar', 'Total damages Crops, Houses & Public utilities in Rs.Crore (col.6+8+11) - Bihar': 'Total damage crops,Houses & Public utilities in Rs.crore'}, inplace=True)
 
     def getCountries(self):
         return self.df.area.unique()
@@ -87,10 +97,10 @@ class Analyse:
     def getDisasterType(self):
         return self.df.groupby('Entity', as_index=False).count()
 
-
     def getDisasterCount(self):
         return self.df.groupby('Entity').count()['Year']
 
     def getDisasterByYear(self):
-        self.df.rename(columns={self.df.columns[-1] : 'disasters'}, inplace=True)
+        self.df.rename(
+            columns={self.df.columns[-1]: 'disasters'}, inplace=True)
         return self.df.sort_values('Year')

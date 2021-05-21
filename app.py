@@ -17,6 +17,7 @@ sidebar = st.sidebar
 analysis = Analyse("dataset/Environment_Temperature_change.csv")
 disasterAnalysis = Analyse("dataset/natural-disaster-events.csv")
 seaAnalysis = Analyse("dataset/sea_levels_2015.csv")
+floodAnalysis = Analyse("dataset/flood_damage.xls")
 
 
 def viewDataset():
@@ -96,7 +97,12 @@ def analyseTemperature():
 
 
 def analyseFloods():
-    pass
+    st.header('Flood Damage India')
+    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Area affected-India', title="Total Area Damaged in India"))
+
+    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Population affected-India', title="Total Population Affected in India"))
 
 
 def analyseDisasters():
