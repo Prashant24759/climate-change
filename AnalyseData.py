@@ -8,7 +8,7 @@ class Analyse:
         if path.endswith('csv'):
             self.df = pd.read_csv(path, encoding="ISO-8859-1")
         if path.endswith('xls'):
-            self.df = pd.read_excel(path, encoding="ISO-8859-1")
+            self.df = pd.read_excel(path)
             self.df = self.df[:-4]
         # self.df = self.df.head(1000)
         if path.endswith('Environment_Temperature_change.csv'):
