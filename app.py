@@ -16,7 +16,7 @@ sidebar = st.sidebar
 
 analysis = Analyse("dataset/Environment_Temperature_change.csv")
 disasterAnalysis = Analyse("dataset/natural-disaster-events.csv")
-seaAnalysis = Analyse("dataset/sea_levels_2015.csv")
+seaAnalysis = Analyse("dataset/sea_levels.csv")
 floodAnalysis = Analyse("dataset/flood_damage.xls")
 
 
@@ -113,20 +113,22 @@ def analyseFloods():
     st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
                              'Year', 'Total damage crops,Houses & Public utilities in Rs.crore', title="Total damage in Bihar"))
 
-     
+
 def analyseDisasters():
 
-    st.header('Types of Natural Disasters')
+    st.markdown("#")
+    st.header('Analysis of Natural Disasters')
+    st.markdown('---')
     data = disasterAnalysis.getDisasterType()
-    st.plotly_chart(plotBar(data, 'Entity', 'Year'))
+    st.plotly_chart(plotBar(data, 'Entity', 'Year',
+                            title="Types of Natural Disasters"))
 
-    st.header('No. of Disasters')
     data = disasterAnalysis.getDisasterCount()
-    st.plotly_chart(plotPie(data.values, data.index))
+    st.plotly_chart(plotPie(data.values, data.index, title="No. of Disasters"))
 
-    st.header('Disasters per Year')
     data = disasterAnalysis.getDisasterByYear()
-    st.plotly_chart(plotLine(data, 'Year', 'disasters'))
+    st.plotly_chart(plotLine(data, 'Year', 'disasters',
+                             title='Disasters per Year'))
 
 
 def analyseSeaLevel():
@@ -134,7 +136,11 @@ def analyseSeaLevel():
     data = seaAnalysis.getDataframe()
     st.plotly_chart(plotLine(data, 'Time', 'GMSL'))
 
-    st.plotly_chart(plotBar(data, 'Time', 'GMSL'))
+    st.plotly_chart(plotBar(data, 'Time', 'GMSL',
+                            title="Sea Level Rise in by months of Years"))
+
+    st.plotly_chart(plotBar(seaAnalysis.getAvgSeaLevelRise(),
+                            'Year', 'GMSL', title="Averge Sea Level Rise Every Year"))
 
 
 sidebar.header('Choose Your Option')
