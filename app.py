@@ -14,10 +14,11 @@ sess = Session()
 st.title('Global Warming and Climate Change Analysis')
 sidebar = st.sidebar
 
-analysis = Analyse("dataset/Environment_Temperature_change.csv")
-disasterAnalysis = Analyse("dataset/natural-disaster-events.csv")
-seaAnalysis = Analyse("dataset/sea_levels.csv")
-floodAnalysis = Analyse("dataset/flood_damage.xls")
+@st.cache(suppress_st_warning=True)
+def loadData():
+    return Analyse("dataset/Environment_Temperature_change.csv"), Analyse("dataset/natural-disaster-events.csv"), Analyse("dataset/sea_levels.csv"), Analyse("dataset/flood_damage.xls")
+
+analysis, disasterAnalysis, seaAnalysis, floodAnalysis = loadData()
 
 
 def viewDataset():
@@ -112,6 +113,9 @@ def analyseFloods():
 
     st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
                              'Year', 'Total damage crops,Houses & Public utilities in Rs.crore', title="Total damage in Bihar"))
+
+    st.plotly_chart(plotGroupedBar(floodAnalysis.getAreaData(
+    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Crops Area damaged"))
 
 
 def analyseDisasters():
