@@ -12,6 +12,19 @@ def plotBar(df, x, y,  title="default title", color_continuous_scale="rainbow"):
     return fig
 
 
+def plotGroupedBar(datapoints, names,  title="default title", xlabel="xlabel", ylabel='ylabel', color_continuous_scale="rainbow"):
+    layout = go.Layout(title=title,
+                       xaxis=dict(title=xlabel),
+                       yaxis=dict(title=ylabel))
+
+    fig = go.Figure(layout=layout)
+
+    for point, name in zip(datapoints, names):
+        fig.add_trace(go.Bar(x=point.index, y=point.values, name=name))
+
+    return fig
+
+
 def plotLine(df, x, y,  title="default title", color_continuous_scale="rainbow"):
     fig = px.line(df,
                   x=x,

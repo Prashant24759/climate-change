@@ -15,12 +15,19 @@ class Analyse:
             self.cleanData1()
         elif path.endswith('flood_damage.xls'):
             self.cleanFloodData()
+        elif path.endswith('sea_levels.csv'):
+            self.cleanSeaData()
 
         self.years = list(range(1961, 2020))
+
+        print('init run')
 
     def cleanFloodData(self):
         self.df.rename(columns={'Sl.No\n-India': 'India', 'Area affected in m.ha. - India': 'Area affected-India', 'Population affected in million - India': 'Population affected-India', 'Damage to Crops - Area in m. ha. - India': 'Damage C.area-India', 'Damage to Crops - Value in Rs.Crore - India': 'Damage C.value-India', 'Damage to Houses - Nos. - India': 'Damage H.no.-India', 'Damage to Houses - Value in Rs.Crore - India': 'Damage H.value-India', 'Cattle Lost Nos. - India': 'Cattle lost-India', 'Human live Lost Nos. - India': 'Human lost no.-India', 'Area affected in m.ha. - Bihar': 'Area affected-Bihar',
                                 'Population affected in million - Bihar': 'Population affected-Bihar', 'Damage to Crops - Area in m. ha. - Bihar': 'Damage C.area-Bihar', 'Damage to Crops - Value in Rs.Crore - Bihar': 'Damage C.value-Bihar', 'Damage to Houses - Nos. - Bihar': 'Damage H.no.-Bihar', 'Damage to Houses - Value in Rs.Crore - Bihar': 'Damage H.value-Bihar', 'Human live Lost Nos. - Bihar': 'Human lost no.-Bihar', 'Damage to Public Utilities in Rs.Crore - Bihar': 'Damage public utilities-Bihar', 'Total damages Crops, Houses & Public utilities in Rs.Crore (col.6+8+11) - Bihar': 'Total damage crops,Houses & Public utilities in Rs.crore'}, inplace=True)
+
+    def cleanSeaData(self):
+        self.df['Year'] = pd.DatetimeIndex(self.df['Time']).year
 
     def getCountries(self):
         return self.df.area.unique()
@@ -104,3 +111,30 @@ class Analyse:
         self.df.rename(
             columns={self.df.columns[-1]: 'disasters'}, inplace=True)
         return self.df.sort_values('Year')
+
+    def getAvgSeaLevelRise(self):
+        return self.df.groupby('Year', as_index=False).mean()
+
+    def getMinSeaLevelRise(self):
+        return self.df.groupby('Year', as_index=False).min()
+
+    def getMaxSeaLevelRise(self):
+        return self.df.groupby('Year', as_index=False).max()
+
+    def getAreaData(self):
+        self.dfa = self.df.set_index('Year')
+        return (
+            self.dfa['Area affected-India'],
+            self.dfa['Damage C.area-Bihar'],
+            self.dfa['Damage to Crops - Area in m. ha. - Uttar Pradesh'],
+            self.dfa['Damage to Crops - Area in m. ha. - Madhya Pradesh']
+        )
+
+    def getPopulationData(self):
+        self.dfa = self.df.set_index('Year')
+        return (
+            self.dfa[ 'Population affected-India'],
+            self.dfa['Population affected-Bihar'],
+            self.dfa['Population affected in million - Uttar Pradesh'],
+            self.dfa[ 'Population affected in million - Madhya Pradesh']
+        )
