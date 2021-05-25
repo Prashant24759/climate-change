@@ -129,3 +129,12 @@ class Analyse:
             self.dfa['Damage to Crops - Area in m. ha. - Uttar Pradesh'],
             self.dfa['Damage to Crops - Area in m. ha. - Madhya Pradesh']
         )
+
+    def getPopulationData(self):
+        self.dfa = self.df.set_index('Year')
+        return (
+            self.dfa[ 'Population affected-India'],
+            self.dfa['Population affected-Bihar'],
+            self.dfa['Population affected in million - Uttar Pradesh'],
+            self.dfa[ 'Population affected in million - Madhya Pradesh']
+        )

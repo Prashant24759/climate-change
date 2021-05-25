@@ -117,6 +117,9 @@ def analyseFloods():
     st.plotly_chart(plotGroupedBar(floodAnalysis.getAreaData(
     ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Crops Area damaged"))
 
+    st.plotly_chart(plotGroupedBar(floodAnalysis.getPopulationData(
+    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Population Affected"))
+
 
 def analyseDisasters():
 
@@ -145,6 +148,13 @@ def analyseSeaLevel():
 
     st.plotly_chart(plotBar(seaAnalysis.getAvgSeaLevelRise(),
                             'Year', 'GMSL', title="Averge Sea Level Rise Every Year"))
+
+    st.plotly_chart(plotBar(seaAnalysis.getMinSeaLevelRise(),
+                            'Year', 'GMSL', title="Minimum Sea Level Rise Every Year"))
+
+    st.plotly_chart(plotBar(seaAnalysis.getMaxSeaLevelRise(),
+                            'Year', 'GMSL', title="Maximum Sea Level Rise Every Year"))
+                        
 
 
 sidebar.header('Choose Your Option')
