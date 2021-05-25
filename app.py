@@ -20,6 +20,33 @@ def loadData():
 
 analysis, disasterAnalysis, seaAnalysis, floodAnalysis = loadData()
 
+current_report = dict().fromkeys(
+    ['title', 'desc', 'img_name', 'save_report'], "")
+
+def generateReport():
+    sidebar.header("Save Report")
+    current_report['title'] = sidebar.text_input('Report Title')
+    current_report['desc'] = sidebar.text_input('Report Description')
+    current_report['img_name'] = sidebar.text_input('Image Name')
+    current_report['save_report'] = sidebar.button("Save Report")
+
+
+def save_report_form(fig):
+    generateReport()
+    if current_report['save_report']:
+        with st.spinner("Saving Report..."):
+            try:
+                path = 'reports/'+current_report['img_name']+'.png'
+                fig.write_image(path)
+                report = Report(
+                    title=current_report['title'], desc=current_report['desc'], img_name=path)
+                sess.add(report)
+                sess.commit()
+                st.success('Report Saved')
+            except Exception as e:
+                st.error('Something went Wrong')
+                print(e)
+
 
 def viewDataset():
     st.header('Data Used in Project')
@@ -99,11 +126,19 @@ def analyseTemperature():
 
 def analyseFloods():
     st.header('Flood Damage India')
-    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
-                             'Year', 'Area affected-India', title="Total Area Damaged in India"))
+    fig = plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Area affected-India', title="Total Area Damaged in India")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", key=1)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
-                             'Year', 'Population affected-India', title="Total Population Affected in India"))
+    fig = plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Population affected-India', title="Total Population Affected in India")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", key=2)
+    if btn:
+        save_report_form(fig)
 
     st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
                              'Year', 'Human lost no.-India', title="Total Humans loss in India"))
@@ -119,6 +154,7 @@ def analyseFloods():
 
     st.plotly_chart(plotGroupedBar(floodAnalysis.getPopulationData(
     ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Population Affected"))
+    st.text("In 1980 Uttar Prasdesh faced the maximum damage due to flood")
 
 
 def analyseDisasters():
