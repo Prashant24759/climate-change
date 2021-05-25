@@ -139,23 +139,42 @@ def analyseFloods():
     btn = st.checkbox(label="Save Report", key=2)
     if btn:
         save_report_form(fig)
+    
+    fig = plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Human lost no.-India', title="Total Humans loss in India")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", Key=3)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
-                             'Year', 'Human lost no.-India', title="Total Humans loss in India"))
+    fig = plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Damage C.area-Bihar', title="Total Crop Affected in Bihar")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", Key=4)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
-                             'Year', 'Damage C.area-Bihar', title="Total Crop Affected in Bihar"))
+    fig = plotLine(floodAnalysis.getDataframe(),
+                             'Year', 'Total damage crops,Houses & Public utilities in Rs.crore', title="Total damage in Bihar")    
+    st.plotly_chart(fig)
+    btn = st.ckeckbox(label="Save Report", Key=5)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotLine(floodAnalysis.getDataframe(),
-                             'Year', 'Total damage crops,Houses & Public utilities in Rs.crore', title="Total damage in Bihar"))
+    fig = plotGroupedBar(floodAnalysis.getAreaData(
+    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Crops Area damaged")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", Key=6)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotGroupedBar(floodAnalysis.getAreaData(
-    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Crops Area damaged"))
-
-    st.plotly_chart(plotGroupedBar(floodAnalysis.getPopulationData(
-    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Population Affected"))
+    fig = plotGroupedBar(floodAnalysis.getPopulationData(
+    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Population Affected")
     st.text("In 1980 Uttar Prasdesh faced the maximum damage due to flood")
-
+    st.plotly_chart(fig)
+    btn = st.checkbox(lable="Save Report", key=7)
+    if btn:
+        save_report_form(fig)
 
 def analyseDisasters():
 
