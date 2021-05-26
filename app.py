@@ -167,11 +167,15 @@ def analyseFloods():
 
     fig = plotGroupedBar(floodAnalysis.getAreaData(
     ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'),xlabel="Year",ylabel="No. of Area Damage", title="Comparison of Crops Area damaged")
-    st.text("In 1980 Uttar Prasdesh faced the maximum damage due to flood")
+    
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=6)
     if btn:
+    
         save_report_form(fig)
+    st.text("Description here:")    
+    st.text("In 1980 Uttar Prasdesh faced the maximum damage due to flood")
+    st.markdown("___")
 
     fig = plotGroupedBar(floodAnalysis.getPopulationData(
     ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'),xlabel="Year",ylabel="Total no. of population", title="Comparison of Population Affected")
