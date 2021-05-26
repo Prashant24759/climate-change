@@ -219,7 +219,7 @@ def analyseDisasters():
 
 def analyseSeaLevel():
     st.header('Sea Levels')
-<<<<<<< HEAD
+
     data = seaAnalysis.getDataframe()
     st.plotly_chart(plotLine(data, 'Time', 'GMSL',
                           title = "Sea level Rise in by months of Years "))
@@ -269,8 +269,6 @@ def analyseSeaLevel():
     btn = st.checkbox(label="Save Report",key=5)
     if btn:
         save_report_form(fig)
-
-
 
 sidebar.header('Choose Your Option')
 options = ['View Dataset', 'Analyse Climate', 'Analyse Floods',
