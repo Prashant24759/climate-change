@@ -141,7 +141,8 @@ def analyseDisasters():
 def analyseSeaLevel():
     st.header('Sea Levels')
     data = seaAnalysis.getDataframe()
-    st.plotly_chart(plotLine(data, 'Time', 'GMSL'))
+    st.plotly_chart(plotLine(data, 'Time', 'GMSL',
+                          title = "Sea level Rise in by months of Years "))
 
     st.plotly_chart(plotBar(data, 'Time', 'GMSL',
                             title="Sea Level Rise in by months of Years"))
