@@ -138,3 +138,12 @@ class Analyse:
             self.dfa['Population affected in million - Uttar Pradesh'],
             self.dfa[ 'Population affected in million - Madhya Pradesh']
         )
+
+    def getHumanData(self):
+        self.dfa = self.df.set_index('Year')
+        return(
+            self.dfa['Human lost no.-India'],
+            self.dfa['Human lost no.-Bihar'],
+            self.dfa['Human live Lost Nos. - Uttar Pradesh'],
+            self.dfa['Human live Lost Nos. - Madhya Pradesh']
+        )    
