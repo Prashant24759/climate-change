@@ -85,16 +85,20 @@ def analyseTemperature():
     selConl = st.selectbox(options=analysis.getCountries(), label="Country")
 
     col1, col2 = st.beta_columns(2)
-    data1 = analysis.country_df(selConl)
+    fig1 = plotLine( analysis.country_df(selConl), 'year', 'Meteorological year',
+                                   title="Line Chart")
     with st.spinner('Loading Plot...'):
-        col1.plotly_chart(plotLine(data1, 'year', 'Meteorological year',
-                                   title="Line Chart"))
-
-    data2 = analysis.country_df(selConl)
+        col1.plotly_chart(fig1)
+        btn = st.checkbox(label="Save Report",key=1)
+        if btn:
+            save_report_form(fig1)
+    fig2 = plotBar(analysis.country_df(selConl), 'year', 'Meteorological year', title="Bar Chart")
     with st.spinner('Loading Plot...'):
-        col2.plotly_chart(
-            plotBar(data2, 'year', 'Meteorological year', title="Bar Chart"))
-
+        col2.plotly_chart(fig2)
+        btn = st.checkbox(label="Save Report",key=2)
+        if btn:
+            save_report_form(fig2)
+             
     selMon = st.selectbox(options=analysis.getMonths(), label=" Month")
     countries = ['USA', 'India', 'UK', 'Germany', 'Canada',
                  'Australia', 'Ireland', 'Europe', 'Japan']
@@ -143,72 +147,111 @@ def analyseFloods():
     fig = plotLine(floodAnalysis.getDataframe(),
                              'Year', 'Human lost no.-India', title="Total Humans loss in India")
     st.plotly_chart(fig)
-    btn = st.checkbox(label="Save Report", Key=3)
+    btn = st.checkbox(label="Save Report", key=3)
     if btn:
         save_report_form(fig)
 
     fig = plotLine(floodAnalysis.getDataframe(),
                              'Year', 'Damage C.area-Bihar', title="Total Crop Affected in Bihar")
     st.plotly_chart(fig)
-    btn = st.checkbox(label="Save Report", Key=4)
+    btn = st.checkbox(label="Save Report", key=4)
     if btn:
         save_report_form(fig)
 
     fig = plotLine(floodAnalysis.getDataframe(),
                              'Year', 'Total damage crops,Houses & Public utilities in Rs.crore', title="Total damage in Bihar")    
     st.plotly_chart(fig)
-    btn = st.ckeckbox(label="Save Report", Key=5)
+    btn = st.checkbox(label="Save Report", key=5)
     if btn:
         save_report_form(fig)
 
     fig = plotGroupedBar(floodAnalysis.getAreaData(
-    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Crops Area damaged")
+    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'),xlabel="Year",ylabel="No. of Area Damage", title="Comparison of Crops Area damaged")
+    st.text("In 1980 Uttar Prasdesh faced the maximum damage due to flood")
     st.plotly_chart(fig)
-    btn = st.checkbox(label="Save Report", Key=6)
+    btn = st.checkbox(label="Save Report", key=6)
     if btn:
         save_report_form(fig)
 
     fig = plotGroupedBar(floodAnalysis.getPopulationData(
-    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), title="Comparison of Population Affected")
-    st.text("In 1980 Uttar Prasdesh faced the maximum damage due to flood")
+    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'),xlabel="Year",ylabel="Total no. of population", title="Comparison of Population Affected")
+   
     st.plotly_chart(fig)
-    btn = st.checkbox(lable="Save Report", key=7)
+    btn = st.checkbox(label="Save Report", key=7)
     if btn:
         save_report_form(fig)
+
+    fig = plotGroupedBar(floodAnalysis.getHumanData(
+    ), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'),xlabel="Year",ylabel="Total no. of Humans", title="Comparison of Human Life Lost in Flood")
+   
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", key=8)
+    if btn:
+        save_report_form(fig)
+
 
 def analyseDisasters():
 
     st.markdown("#")
     st.header('Analysis of Natural Disasters')
     st.markdown('---')
-    data = disasterAnalysis.getDisasterType()
-    st.plotly_chart(plotBar(data, 'Entity', 'Year',
-                            title="Types of Natural Disasters"))
+    fig = plotBar(disasterAnalysis.getDisasterType(), 'Entity', 'Year',
+                            title="Types of Natural Disasters")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report",key=1)
+    if btn:
+        save_report_form(fig)
+    
 
-    data = disasterAnalysis.getDisasterCount()
-    st.plotly_chart(plotPie(data.values, data.index, title="No. of Disasters"))
+    fig = plotPie( disasterAnalysis.getDisasterCount().values, disasterAnalysis.getDisasterCount().index, title="No. of Disasters")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report",key=2)
+    if btn:
+        save_report_form(fig)
 
-    data = disasterAnalysis.getDisasterByYear()
-    st.plotly_chart(plotLine(data, 'Year', 'disasters',
-                             title='Disasters per Year'))
+    fig = plotLine(disasterAnalysis.getDisasterByYear(), 'Year', 'disasters',
+                             title='Disasters per Year')
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report",key=3)
+    if btn:
+        save_report_form(fig)
 
 
 def analyseSeaLevel():
     st.header('Sea Levels')
-    data = seaAnalysis.getDataframe()
-    st.plotly_chart(plotLine(data, 'Time', 'GMSL'))
+    fig = plotLine( seaAnalysis.getDataframe(), 'Time', 'GMSL')
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report",key=1)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotBar(data, 'Time', 'GMSL',
-                            title="Sea Level Rise in by months of Years"))
+    fig = plotBar( seaAnalysis.getDataframe(), 'Time', 'GMSL',
+                            title="Sea Level Rise in by months of Years")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report",key=2)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotBar(seaAnalysis.getAvgSeaLevelRise(),
-                            'Year', 'GMSL', title="Averge Sea Level Rise Every Year"))
+    fig = plotBar(seaAnalysis.getAvgSeaLevelRise(),
+                            'Year', 'GMSL', title="Averge Sea Level Rise Every Year")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report",key=3)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotBar(seaAnalysis.getMinSeaLevelRise(),
-                            'Year', 'GMSL', title="Minimum Sea Level Rise Every Year"))
+    fig = plotBar(seaAnalysis.getMinSeaLevelRise(),
+                            'Year', 'GMSL', title="Minimum Sea Level Rise Every Year")    
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report",key=4)
+    if btn:
+        save_report_form(fig)
 
-    st.plotly_chart(plotBar(seaAnalysis.getMaxSeaLevelRise(),
-                            'Year', 'GMSL', title="Maximum Sea Level Rise Every Year"))
+    fig = plotBar(seaAnalysis.getMaxSeaLevelRise(),
+                            'Year', 'GMSL', title="Maximum Sea Level Rise Every Year")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report",key=5)
+    if btn:
+        save_report_form(fig)
                         
 
 
