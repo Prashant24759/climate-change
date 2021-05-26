@@ -235,7 +235,7 @@ def analyseSeaLevel():
 
     st.plotly_chart(plotBar(seaAnalysis.getMaxSeaLevelRise(),
                             'Year', 'GMSL', title="Maximum Sea Level Rise Every Year"))
-=======
+ 
     fig = plotLine( seaAnalysis.getDataframe(), 'Time', 'GMSL')
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report",key=1)
@@ -269,8 +269,7 @@ def analyseSeaLevel():
     btn = st.checkbox(label="Save Report",key=5)
     if btn:
         save_report_form(fig)
->>>>>>> 8a0c2d15c31823ad83c266eeb4f8f73846e8b187
-                        
+
 
 
 sidebar.header('Choose Your Option')
