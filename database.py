@@ -1,17 +1,18 @@
-import sqlalchemy
+
 from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class Report(Base):
 
-    __tablename__ ="reports"
+    __tablename__ = "reports"
 
-    id =Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     title = Column(String)
     desc = Column(String)
-    data = Column(String)
+    img_name = Column(String)
 
 
 if __name__ == "__main__":
