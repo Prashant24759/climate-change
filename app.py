@@ -12,6 +12,7 @@ Session = sessionmaker(bind=engine)
 sess = Session()
 
 st.title('Global Warming and Climate Change Analysis')
+st.image("logo.jpg")
 sidebar = st.sidebar
 
 
