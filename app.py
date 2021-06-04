@@ -12,6 +12,7 @@ Session = sessionmaker(bind=engine)
 sess = Session()
 
 st.title('Global Warming and Climate Change Analysis')
+st.image("logo.jpg")
 sidebar = st.sidebar
 
 
@@ -20,14 +21,15 @@ def loadTempData():
     return Analyse("dataset/Environment_Temperature_change.csv")
 
 
-@st.cache(suppress_st_warning=True)
+# @st.cache(suppress_st_warning=True)
 def loadDisasterData():
     return Analyse("dataset/natural-disaster-events.csv")
-    
 
-@st.cache(suppress_st_warning=True)
+
+# @st.cache(suppress_st_warning=True)
 def loadEconomicData():
-    return Analyse("dataset/natural-disasters-loss.csv")    
+    return Analyse("dataset/natural-disasters-loss.csv")
+
 
 @st.cache(suppress_st_warning=True)
 def loadFloodData():
@@ -48,6 +50,13 @@ EconomicAnalysis = loadEconomicData()
 
 current_report = dict().fromkeys(
     ['title', 'desc', 'img_name', 'save_report'], "")
+
+def overview():
+    st.header('Global Warming')
+    st.markdown('''
+        ### *Climate change includes both global warming driven by human-induced emissions of greenhouse gases and the resulting large-scale shifts in weather patterns.*
+    ''')
+    st.image('global_warming.jpg')
 
 
 def generateReport():
@@ -198,7 +207,8 @@ def analyseFloods():
         save_report_form(fig)
     st.text("Discription :")
     st.markdown("___")
-    fig = plotGroupedBar(floodAnalysis.getAreaData(), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), xlabel="Year", ylabel="No. of Area Damage", title="Comparison of Crops Area damaged")
+    fig = plotGroupedBar(floodAnalysis.getAreaData(), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'),
+                         xlabel="Year", ylabel="No. of Area Damage", title="Comparison of Crops Area damaged")
 
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=6)
@@ -208,7 +218,8 @@ def analyseFloods():
     st.text("Description : In 1980 Uttar Prasdesh faced the maximum damage due to flood")
     st.markdown("___")
 
-    fig = plotGroupedBar(floodAnalysis.getPopulationData(), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), xlabel="Year", ylabel="Total no. of population", title="Comparison of Population Affected")
+    fig = plotGroupedBar(floodAnalysis.getPopulationData(), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'),
+                         xlabel="Year", ylabel="Total no. of population", title="Comparison of Population Affected")
 
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=7)
@@ -216,7 +227,8 @@ def analyseFloods():
         save_report_form(fig)
     st.text("Discription :")
     st.markdown("___")
-    fig = plotGroupedBar(floodAnalysis.getHumanData(), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'), xlabel="Year", ylabel="Total no. of Humans", title="Comparison of Human Life Lost in Flood")
+    fig = plotGroupedBar(floodAnalysis.getHumanData(), ('India', 'Bihar', 'Uttar Pradesh', 'Madhya Pradesh'),
+                         xlabel="Year", ylabel="Total no. of Humans", title="Comparison of Human Life Lost in Flood")
 
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=8)
@@ -239,7 +251,8 @@ def analyseDisasters():
         save_report_form(fig)
     st.text("Discription : In the above chart we can see that type of Natural Disaster")
     st.markdown("___")
-    fig = plotPie(disasterAnalysis.getDisasterCount().values, disasterAnalysis.getDisasterCount().index, title="No. of Disasters")
+    fig = plotPie(disasterAnalysis.getDisasterCount(
+    ).values, disasterAnalysis.getDisasterCount().index, title="No. of Disasters")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=2)
     if btn:
@@ -255,30 +268,43 @@ def analyseDisasters():
     st.text(" In 2005 maximum number of Disaster per year Occure")
     st.markdown("___")
 
-    fig = plotLine(disasterAnalysis.getDroughtByYear(),'Year','Drought',title="Drought Per Year")
+    fig = plotLine(disasterAnalysis.getDroughtByYear(),
+                   'Year', 'Drought', title="Drought Per Year")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=4)
     if btn:
-        save_report_form(fig) 
+        save_report_form(fig)
 
-   
-    fig = plotLine(disasterAnalysis.getEarthquakeByYear(),'Year','Earthquake',title="Earthquake Per Year")
+    fig = plotLine(disasterAnalysis.getEarthquakeByYear(),
+                   'Year', 'Earthquake', title="Earthquake Per Year")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=5)
     if btn:
-        save_report_form(fig) 
+        save_report_form(fig)
 
-    fig = plotLine(disasterAnalysis.getWildfireByYear(),'Year','Wildfire',title="Wildfire Per Year")
+    fig = plotLine(disasterAnalysis.getWildfireByYear(), 'Year',
+                   'Wildfire', title="Wildfire Per Year")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=6)
     if btn:
-        save_report_form(fig)         
+        save_report_form(fig)
 
+
+<<<<<<< HEAD
     fig = plotLine(disasterAnalysis.getVolcanicactivityByYear(),'Year','Volcanic activity',title="Volcanic Activity Per Year")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=7)
     if btn:
         save_report_form(fig)   
+=======
+def analyseEconomicLoss():
+    st.markdown("#")
+    st.header('Analysis of Economic Damage By Disasters')
+    st.markdown('---')
+    st.dataframe(EconomicAnalysis.getEconomicLossByYear())
+    fig = plotBar(EconomicAnalysis.getEconomicLossByYear(), 1, 0,
+                  title="Economic Loss From Natural Disasters")
+>>>>>>> d5b98b156640d85ef65fdd3a6d0069802f438420
 
 
 def analyseSeaLevel():
@@ -286,7 +312,7 @@ def analyseSeaLevel():
 
     data = seaAnalysis.getDataframe()
     fig = plotLine(seaAnalysis.getDataframe(), 'Time', 'GMSL',
-     title="Sea Level Rise in by months of Years")
+                   title="Sea Level Rise in by months of Years")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=1)
     if btn:
@@ -352,21 +378,23 @@ def ViewReport():
 
 
 sidebar.header('Choose Your Option')
-options = ['View Dataset', 'Analyse Climate', 'Analyse Floods',
-           'Analyse other Disasters', 'Analyse Sea Level', 'Analyse Economic Loss By Disaster','View Report']
+options = ['Project Overview', 'View Dataset', 'Analyse Climate', 'Analyse Floods',
+           'Analyse other Disasters', 'Analyse Sea Level', 'Analyse Economic Loss By Disaster', 'View Report']
 choice = sidebar.selectbox(options=options, label="Choose Action")
 
 if choice == options[0]:
-    viewDataset()
+    overview()
 elif choice == options[1]:
-    analyseTemperature()
+    viewDataset()
 elif choice == options[2]:
-    analyseFloods()
+    analyseTemperature()
 elif choice == options[3]:
-    analyseDisasters()
+    analyseFloods()
 elif choice == options[4]:
-    analyseSeaLevel()
+    analyseDisasters()
 elif choice == options[5]:
-    analyseEconomicLoss()
+    analyseSeaLevel()
 elif choice == options[6]:
+    analyseEconomicLoss()
+elif choice == options[7]:
     ViewReport()

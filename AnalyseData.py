@@ -111,12 +111,11 @@ class Analyse:
         self.df.rename(
             columns={self.df.columns[-1]: 'disasters'}, inplace=True)
         return self.df.sort_values('Year')
-    
-    
+
     def getDroughtByYear(self):
         self.df.rename(
             columns={self.df.columns[-1]: 'Drought'}, inplace=True)
-        return self.df.sort_values('Year')        
+        return self.df.sort_values('Year')
 
     def getEarthquakeByYear(self):
         self.df.rename(
@@ -128,12 +127,15 @@ class Analyse:
             columns={self.df.columns[-1]: 'Wildfire'}, inplace=True)
         return self.df.sort_values('Year')
 
+<<<<<<< HEAD
     def getVolcanicactivityByYear(self):
         self.df.rename(
             columns={self.df.columns[-1]: 'Volcanic activity'}, inplace=True)
         return self.df.sort_values('Year')
 
         
+=======
+>>>>>>> d5b98b156640d85ef65fdd3a6d0069802f438420
     def getAvgSeaLevelRise(self):
         return self.df.groupby('Year', as_index=False).mean()
 
@@ -143,7 +145,13 @@ class Analyse:
     def getMaxSeaLevelRise(self):
         return self.df.groupby('Year', as_index=False).max()
 
+<<<<<<< HEAD
    
+=======
+    def getEconomicLossByYear(self):
+        return self.df.groupby('Total economic damage from natural disasters (US$)', as_index=False)
+
+>>>>>>> d5b98b156640d85ef65fdd3a6d0069802f438420
     def getAreaData(self):
         self.dfa = self.df.set_index('Year')
         return (
@@ -156,10 +164,10 @@ class Analyse:
     def getPopulationData(self):
         self.dfa = self.df.set_index('Year')
         return (
-            self.dfa[ 'Population affected-India'],
+            self.dfa['Population affected-India'],
             self.dfa['Population affected-Bihar'],
             self.dfa['Population affected in million - Uttar Pradesh'],
-            self.dfa[ 'Population affected in million - Madhya Pradesh']
+            self.dfa['Population affected in million - Madhya Pradesh']
         )
 
     def getHumanData(self):
@@ -169,4 +177,4 @@ class Analyse:
             self.dfa['Human lost no.-Bihar'],
             self.dfa['Human live Lost Nos. - Uttar Pradesh'],
             self.dfa['Human live Lost Nos. - Madhya Pradesh']
-        )    
+        )
