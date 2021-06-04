@@ -262,11 +262,17 @@ def analyseDisasters():
         save_report_form(fig) 
 
    
-    fig = plotLine(disasterAnalysis.getEarthquakeByYear(), 'Earthquake','Year',title="Earthquake Per Year")
+    fig = plotLine(disasterAnalysis.getEarthquakeByYear(),'Year','Earthquake',title="Earthquake Per Year")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=5)
     if btn:
-        save_report_form(fig)     
+        save_report_form(fig) 
+
+    fig = plotLine(disasterAnalysis.getWildfireByYear(),'Year','Wildfire',title="Wildfire Per Year")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", key=5)
+    if btn:
+        save_report_form(fig)         
 
     
 def analyseEconomicLoss():

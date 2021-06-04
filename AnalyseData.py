@@ -109,20 +109,26 @@ class Analyse:
 
     def getDisasterByYear(self):
         self.df.rename(
-            columns={self.df.columns[-1]: 'disasters'}, inplac=True)
+            columns={self.df.columns[-1]: 'disasters'}, inplace=True)
         return self.df.sort_values('Year')
     
     
     def getDroughtByYear(self):
         self.df.rename(
-            columns={self.df.columns[-1]: 'Drought'}, inplac=True)
+            columns={self.df.columns[-1]: 'Drought'}, inplace=True)
         return self.df.sort_values('Year')        
 
     def getEarthquakeByYear(self):
         self.df.rename(
-            columns={self.df.columns[-1]: 'Earthquake'}, inplac=True)
-        return self.df.sort_values('Year')     
+            columns={self.df.columns[-1]: 'Earthquake'}, inplace=True)
+        return self.df.sort_values('Year')
 
+    def getWildfireByYear():
+        self.df.rename(
+            columns={self.df.columns[-1]: 'Wildfire'}, inplace=True)
+        return self.df.sort_values('Year')
+          
+        
     def getAvgSeaLevelRise(self):
         return self.df.groupby('Year', as_index=False).mean()
 
