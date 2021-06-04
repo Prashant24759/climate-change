@@ -109,8 +109,19 @@ class Analyse:
 
     def getDisasterByYear(self):
         self.df.rename(
-            columns={self.df.columns[-1]: 'disasters'}, inplace=True)
+            columns={self.df.columns[-1]: 'disasters'}, inplac=True)
         return self.df.sort_values('Year')
+    
+    
+    def getDroughtByYear(self):
+        self.df.rename(
+            columns={self.df.columns[-1]: 'Drought'}, inplac=True)
+        return self.df.sort_values('Year')        
+
+    def getEarthquakeByYear(self):
+        self.df.rename(
+            columns={self.df.columns[-1]: 'Earthquake'}, inplac=True)
+        return self.df.sort_values('Year')     
 
     def getAvgSeaLevelRise(self):
         return self.df.groupby('Year', as_index=False).mean()
@@ -120,6 +131,9 @@ class Analyse:
 
     def getMaxSeaLevelRise(self):
         return self.df.groupby('Year', as_index=False).max()
+
+    def getEconomicLossByYear():
+         return self.df.groupby('Total economic damage from natural disasters', as_index=False)
 
     def getAreaData(self):
         self.dfa = self.df.set_index('Year')
