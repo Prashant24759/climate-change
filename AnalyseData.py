@@ -127,15 +127,21 @@ class Analyse:
             columns={self.df.columns[-1]: 'Wildfire'}, inplace=True)
         return self.df.sort_values('Year')
 
-<<<<<<< HEAD
-    def getVolcanicactivityByYear(self):
+    def getVolcanicActivityByYear(self):
         self.df.rename(
             columns={self.df.columns[-1]: 'Volcanic activity'}, inplace=True)
         return self.df.sort_values('Year')
 
-        
-=======
->>>>>>> d5b98b156640d85ef65fdd3a6d0069802f438420
+    def getLandslideByYear(self):
+        self.df.rename(
+            columns={self.df.columns[-1]: 'Landslide'}, inplace=True)
+        return self.df.sort_values('Year')
+
+    def getExtremeWeatherByYear(self):
+        self.df.rename(
+            columns={self.df.columns[-1]: 'Extreme weather'}, inplace=True)
+        return self.df.sort_values('Year')
+
     def getAvgSeaLevelRise(self):
         return self.df.groupby('Year', as_index=False).mean()
 
@@ -145,13 +151,12 @@ class Analyse:
     def getMaxSeaLevelRise(self):
         return self.df.groupby('Year', as_index=False).max()
 
-<<<<<<< HEAD
    
-=======
+
     def getEconomicLossByYear(self):
         return self.df.groupby('Total economic damage from natural disasters (US$)', as_index=False)
 
->>>>>>> d5b98b156640d85ef65fdd3a6d0069802f438420
+
     def getAreaData(self):
         self.dfa = self.df.set_index('Year')
         return (

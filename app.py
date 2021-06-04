@@ -274,38 +274,39 @@ def analyseDisasters():
     btn = st.checkbox(label="Save Report", key=4)
     if btn:
         save_report_form(fig)
-
+    st.markdown("___")
     fig = plotLine(disasterAnalysis.getEarthquakeByYear(),
                    'Year', 'Earthquake', title="Earthquake Per Year")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=5)
     if btn:
         save_report_form(fig)
-
+    st.markdown("___")
     fig = plotLine(disasterAnalysis.getWildfireByYear(), 'Year',
                    'Wildfire', title="Wildfire Per Year")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=6)
     if btn:
         save_report_form(fig)
-
-
-<<<<<<< HEAD
-    fig = plotLine(disasterAnalysis.getVolcanicactivityByYear(),'Year','Volcanic activity',title="Volcanic Activity Per Year")
+    st.markdown("___")
+    fig = plotLine(disasterAnalysis.getVolcanicActivityByYear(),'Year','Volcanic activity',title="Volcanic Activity Per Year")
     st.plotly_chart(fig)
     btn = st.checkbox(label="Save Report", key=7)
     if btn:
         save_report_form(fig)   
-=======
-def analyseEconomicLoss():
-    st.markdown("#")
-    st.header('Analysis of Economic Damage By Disasters')
-    st.markdown('---')
-    st.dataframe(EconomicAnalysis.getEconomicLossByYear())
-    fig = plotBar(EconomicAnalysis.getEconomicLossByYear(), 1, 0,
-                  title="Economic Loss From Natural Disasters")
->>>>>>> d5b98b156640d85ef65fdd3a6d0069802f438420
-
+    st.markdown("___")
+    fig = plotLine(disasterAnalysis.getLandslideByYear(),'Year','Landslide',title="Landslide Per Year")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", key=8)
+    if btn:
+        save_report_form(fig)
+    st.markdown("___")
+    fig = plotLine(disasterAnalysis.getExtremeWeatherByYear(),'Year','Extreme weather',title="Extreme Weather Per Year")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", key=9)
+    if btn:
+        save_report_form(fig)
+    st.markdown("___")
 
 def analyseSeaLevel():
     st.header('Sea Levels')
@@ -379,7 +380,7 @@ def ViewReport():
 
 sidebar.header('Choose Your Option')
 options = ['Project Overview', 'View Dataset', 'Analyse Climate', 'Analyse Floods',
-           'Analyse other Disasters', 'Analyse Sea Level', 'Analyse Economic Loss By Disaster', 'View Report']
+           'Analyse other Disasters', 'Analyse Sea Level', 'View Report']
 choice = sidebar.selectbox(options=options, label="Choose Action")
 
 if choice == options[0]:
@@ -394,7 +395,6 @@ elif choice == options[4]:
     analyseDisasters()
 elif choice == options[5]:
     analyseSeaLevel()
+
 elif choice == options[6]:
-    analyseEconomicLoss()
-elif choice == options[7]:
     ViewReport()
