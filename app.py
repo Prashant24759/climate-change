@@ -270,21 +270,15 @@ def analyseDisasters():
 
     fig = plotLine(disasterAnalysis.getWildfireByYear(),'Year','Wildfire',title="Wildfire Per Year")
     st.plotly_chart(fig)
-    btn = st.checkbox(label="Save Report", key=5)
+    btn = st.checkbox(label="Save Report", key=6)
     if btn:
         save_report_form(fig)         
 
-    
-def analyseEconomicLoss():
-     st.markdown("#")
-     st.header('Analysis of Economic Damage By Disasters')
-     st.markdown('---')
-     fig = plotBar(EconomicAnalysis.getEconomicLossByYear(), 'Total economic damage from natural disasters', 'Year',
-                  title="Economic Loss From Natural Disasters")
-
-
-
-
+    fig = plotLine(disasterAnalysis.getVolcanicactivityByYear(),'Year','Volcanic activity',title="Volcanic Activity Per Year")
+    st.plotly_chart(fig)
+    btn = st.checkbox(label="Save Report", key=7)
+    if btn:
+        save_report_form(fig)   
 
 
 def analyseSeaLevel():
