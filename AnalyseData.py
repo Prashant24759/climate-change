@@ -71,6 +71,8 @@ class Analyse:
     def getDataframe(self):
         return self.df
 
+   
+
     def seasons_df(self, country):
         dfn = self.df[(self.df['element'] == 'Temperature change')
                       & (self.df['area'] == country)]
