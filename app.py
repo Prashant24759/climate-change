@@ -478,6 +478,5 @@ elif choice == options[4]:
     analyseDisasters()
 elif choice == options[5]:
     analyseSeaLevel()
-
 elif choice == options[6]:
     ViewReport()
